@@ -148,12 +148,12 @@ const HomePage = () => {
     }
   };
   return (
-    <>
+    <div className="w-full flex flex-col">
     <Header/>
-      <div className="bg-primary min-h-screen flex items-center justify-center text-white">
+      <div className="bg-primary min-h-screen flex items-center justify-center text-white ">
         {renderCurrentStep()}
       </div>
-    </>
+    </div>
   );
 };
 
