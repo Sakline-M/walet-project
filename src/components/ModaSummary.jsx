@@ -25,11 +25,11 @@ const ModalSummary = ({ selectedOptions, updateOptions, progress, step }) => {
         <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-secondary">
           <div
             style={{ width: `${progress}%` }}
-            className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-accent1"
+            className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#BF40BF]"
           ></div>
         </div>
       </div>
-      <h2 className="text-2xl text-black font-semibold mb-4">Summary of Selected Options:</h2>
+      <h2 className="text-2xl text-[#BF40BF] font-semibold mb-4">Summary of Selected Options:</h2>
       {Object.keys(options).length === 0 ? (
         <p>No options selected.</p>
       ) : (
@@ -38,12 +38,12 @@ const ModalSummary = ({ selectedOptions, updateOptions, progress, step }) => {
             <div key={`${key}-${index}`} className="mb-2 flex flex-row sm:flex-row justify-between items-center">
               <input
                 type="text"
-                className="border border-secondary text-black p-1 rounded w-auto sm:w-[800px]"
+                className="border border-secondary text-[#BF40BF] p-1 rounded w-auto sm:w-[800px]"
                 value={value}
                 onChange={(e) => handleEdit(key, index, e.target.value)}
               />
               <button
-                className="border border-accent2 text-accent2 py-1 px-6 rounded mt-2 sm:mt-0 sm:ml-2 w-auto sm:w-auto text-black"
+                className="border border-[#BF40BF] text-[#BF40BF] py-1 px-6 rounded mt-2 sm:mt-0 sm:ml-2 w-auto sm:w-auto "
                 onClick={() => handleDelete(key, index)}
               >
                 Delete

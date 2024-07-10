@@ -17,22 +17,22 @@ const ModalStep7 = ({ onSelect, nextStep, progress, step, selectedOptions }) => 
           <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-secondary">
             <div
               style={{ width: `${progress}%` }}
-              className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-black"
+              className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-[#BF40BF]"
             ></div>
           </div>
         </div>
-        <h2 className="text-2xl mb-4 text-black">What are some expenes that always sneak up on you?</h2>
+        <h2 className="text-2xl font-semibold mb-4 text-[#BF40BF]">What are some expenes that always sneak up on you?</h2>
         {options.map(option => (
           <button
             key={option}
-            className={`py-2 px-4 rounded mb-2 w-full border border-white ${selectedOptions.includes(option) ? 'bg-accent2' : 'bg-accent1'} text-black`}
+            className={`py-2 px-4 rounded mb-2 w-full border border-[#BF40BF] ${selectedOptions.includes(option) ? 'bg-accent2' : 'bg-accent1'} text-black`}
             onClick={() => handleOptionClick(option)}
           >
             {option}
           </button>
         ))}
         <button
-          className="bg-accent2 text-black py-2 px-4 rounded w-full mt-4 "
+          className="bg-[#BF40BF] text-white py-2 px-4 rounded w-full mt-4 "
           onClick={nextStep}
         >
           Next
