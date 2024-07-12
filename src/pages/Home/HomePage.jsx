@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import { FaTrash, FaEdit } from 'react-icons/fa';
 
@@ -7,14 +7,28 @@ const HomePage = () => {
   const [month, setMonth] = useState('');
   const [incomeSource, setIncomeSource] = useState('');
   const [monthlyIncome, setMonthlyIncome] = useState('');
-  const [incomeSources, setIncomeSources] = useState([]);
+  const [incomeSources, setIncomeSources] = useState(() => {
+    const savedIncomes = localStorage.getItem('incomeSources');
+    return savedIncomes ? JSON.parse(savedIncomes) : [];
+  });
   const [editingIncome, setEditingIncome] = useState(false);
   const [currentIncome, setCurrentIncome] = useState(null);
   const [title, setTitle] = useState('');
   const [budget, setBudget] = useState('');
-  const [posts, setPosts] = useState([]);
+  const [posts, setPosts] = useState(() => {
+    const savedPosts = localStorage.getItem('posts');
+    return savedPosts ? JSON.parse(savedPosts) : [];
+  });
   const [editing, setEditing] = useState(false);
   const [currentPost, setCurrentPost] = useState(null);
+
+  useEffect(() => {
+    localStorage.setItem('incomeSources', JSON.stringify(incomeSources));
+  }, [incomeSources]);
+
+  useEffect(() => {
+    localStorage.setItem('posts', JSON.stringify(posts));
+  }, [posts]);
 
   const handleIncomeSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +37,9 @@ const HomePage = () => {
       // Update the existing income
       setIncomeSources(
         incomeSources.map((income) =>
-          income.id === currentIncome.id ? { ...income, month, incomeSource, monthlyIncome: parseFloat(monthlyIncome) } : income
+          income.id === currentIncome.id
+            ? { ...income, month, incomeSource, monthlyIncome: parseFloat(monthlyIncome) }
+            : income
         )
       );
       setEditingIncome(false);
@@ -238,13 +254,13 @@ const HomePage = () => {
                 type="submit"
                 className="bg-[#BF40BF] text-white py-2 px-4 rounded-md hover:bg-[#e983e9] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
               >
-                {editing ? 'Update' : 'Submit'}
+                {editing ? 'Update Expense' : 'Add Expense'}
               </button>
             </form>
 
             {posts.length > 0 && (
-              <div className="mt-4">
-                <h2 className="text-lg font-medium mb-2 text-[#BF40BF]">Your Budget</h2>
+              <div className="mt-6">
+                <h2 className="text-lg font-medium mb-2 text-[#BF40BF]">Your Expenses</h2>
                 <ul className="divide-y divide-gray-200">
                   {posts.map((post) => (
                     <li key={post.id} className="py-2 flex justify-between items-center">
@@ -276,13 +292,9 @@ const HomePage = () => {
             )}
           </div>
         </div>
-
-        {/* Calculation Section */}
-        <div className="mt-6 flex justify-center">
-          <h3 className={`text-lg font-medium ${isBudgetShort ? 'text-red-500' : 'text-black'}`}>
-            {isBudgetShort ? 'Budget Short: ' : 'Remaining Income: '}
-            ${Math.abs(remainingIncome()).toFixed(2)}
-          </h3>
+        <div className="mt-6 text-center">
+          <h2 className="text-xl font-medium text-[#BF40BF]">Remaining Income: ${remainingIncome().toFixed(2)}</h2>
+          {isBudgetShort && <p className="text-red-500">Budget Over!</p>}
         </div>
       </div>
     </div>

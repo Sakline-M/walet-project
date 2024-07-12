@@ -1,8 +1,39 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import React, { useState } from 'react';
+import toast from 'react-hot-toast';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RegistrationPage = () => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [location, setlocation] = useState("");
+  const navigate = useNavigate();
+
+   //form function
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(name, email, password, location)
+    try {
+
+      fetch('http://localhost:5000/api/v1/user/signup',{
+        method : "POST",
+        headers : {
+          "Content-type" : "appilication/json"
+        },
+        body : JSON.stringify({name,email, location,password})
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      navigate("/login");
+      
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -13,14 +44,15 @@ const RegistrationPage = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" action="#" method="POST"  onSubmit={handleSubmit}>
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                 Name
               </label>
               <div className="mt-1">
                 <input
-                  id="name"
+                   value={name}
+                   onChange={(e) => setName(e.target.value)}
                   name="name"
                   type="text"
                   autoComplete="name"
@@ -37,7 +69,8 @@ const RegistrationPage = () => {
               </label>
               <div className="mt-1">
                 <input
-                  id="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   type="email"
                   autoComplete="email"
@@ -54,7 +87,8 @@ const RegistrationPage = () => {
               </label>
               <div className="mt-1">
                 <input
-                  id="location"
+                  value={location}
+                  onChange={(e) => setlocation(e.target.value)}
                   name="location"
                   type="text"
                   required
@@ -70,7 +104,8 @@ const RegistrationPage = () => {
               </label>
               <div className="mt-1">
                 <input
-                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   name="password"
                   type="password"
                   autoComplete="new-password"
