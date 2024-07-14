@@ -46,7 +46,7 @@ const AccountPage = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("client");
-    navigate('/login');
+    navigate('/');
   };
 
   return (

@@ -15,7 +15,7 @@ const Header = () => {
         </Link>
         <div className="flex items-center ml-4 text-gray-300">
           <FaMapMarkerAlt className="text-lg mr-1" />
-          <span className="text-sm">{data.location}</span>
+          <span className="text-sm">{data?.location}</span>
         </div>
       </div>
       <div className="flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4 w-full md:w-auto">
